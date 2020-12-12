@@ -36,6 +36,7 @@ def rotate(d, r):
 
     return Dir(a*c - b*d, a*d + b*c)
 
+
 pos = Pos(0, 0)
 direction = E
 for ins in INSTRUCTIONS:
