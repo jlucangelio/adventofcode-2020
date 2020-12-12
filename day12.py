@@ -24,8 +24,8 @@ def scale(k, d):
     return Dir(k * d.x, k * d.y)
 
 
-def move(p, m):
-    return Pos(p.x + m.x, p.y + m.y)
+def move(p, d):
+    return Pos(p.x + d.x, p.y + d.y)
 
 
 def rotate(d, r):
