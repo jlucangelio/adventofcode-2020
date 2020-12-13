@@ -1,14 +1,16 @@
 import copy
 
+DIRECTIONS = [(i, j) for i in range(-1, 2) for j in range(-1, 2) if i != 0 or j != 0]
+
 with open("day11.in") as f:
     SEATS = [[c for c in line.strip()] for line in f.readlines()]
 
 def count_neighbors(pos, w, h, seats):
-    directions = [(i, j) for i in range(-1, 2) for j in range(-1, 2) if i != 0 or j != 0]
     occupied_neighbors = 0
-    for d in directions:
-        step = (pos[0] + d[0], pos[1] + d[1])
-        if in_bounds(step, w, h) and seats[step[1]][step[0]] == "#":
+    for d in DIRECTIONS:
+        step_x = pos[0] + d[0]
+        step_y = pos[1] + d[1]
+        if in_bounds((step_x, step_y), w, h) and seats[step_y][step_x] == "#":
            occupied_neighbors += 1
 
     return occupied_neighbors
@@ -21,9 +23,8 @@ def in_bounds(pos, w, h):
 
 
 def count_neighbors_part2(pos, w, h, seats):
-    directions = [(i, j) for i in range(-1, 2) for j in range(-1, 2) if i != 0 or j != 0]
     occupied_neighbors = 0
-    for d in directions:
+    for d in DIRECTIONS:
         step = (pos[0] + d[0], pos[1] + d[1])
         while in_bounds(step, w, h):
             step_x = step[0]
@@ -37,10 +38,6 @@ def count_neighbors_part2(pos, w, h, seats):
                 break
 
     return occupied_neighbors
-
-
-def count_occupied(neighbors, seats):
-    return sum([1 for n in neighbors if seats[n[1]][n[0]] == "#"])
 
 
 def one_step(seats, count_neighbors_func, crowded):
