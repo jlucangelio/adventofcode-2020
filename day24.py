@@ -143,20 +143,17 @@ print(len(black_tiles))
 for day in range(100):
     next_day = set()
 
+    seen = set()
     for tile in black_tiles:
-        if 0 < count_black_neighboring_tiles(tile, black_tiles) <= 2:
-            next_day.add(tile)
-
-        for n in neighbors(tile):
-            if n in black_tiles:
-                # If |n| was in |black_tiles|, we already have looked/
-                # will look at it in the 'if' statement above.
-                continue
-
-            # Tile is white.
-            nblack_tiles = count_black_neighboring_tiles(n, black_tiles)
-            if nblack_tiles == 2:
-                next_day.add(n)
+        to_consider = [tile] + neighbors(tile)
+        for t in to_consider:
+            if t not in seen:
+                n = count_black_neighboring_tiles(t, black_tiles)
+                if t in black_tiles and 0 < n <= 2:
+                    next_day.add(t)
+                elif t not in black_tiles and n == 2:
+                    next_day.add(t)
+                seen.add(t)
 
     # print(day + 1, len(next_day))
     black_tiles = next_day
