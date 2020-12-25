@@ -30,6 +30,10 @@ for i in range(10_000_000):
     for j in range_3:
         n = next_cup[n]
         removed[j] = n
+        if n == max_cup:
+            max_cup -= 1
+        elif n == min_cup:
+            min_cup += 1
         # print(n)
 
     # print(removed)
@@ -52,6 +56,12 @@ for i in range(10_000_000):
     next_cup[dest] = removed[0]
     next_cup[removed[-1]] = next_dest
     next_cup[cur] = next_last_removed
+
+    for r in removed:
+        if r > max_cup:
+            max_cup = r
+        elif r < min_cup:
+            min_cup = r
 
     cur = next_cup[cur]
 
